@@ -1,0 +1,16 @@
+function softUniBarIncome(input) {
+    let pattern = /[A-Za-z]*%(?<name>[A-Z][a-z]+|\D+)%\D*<(?<product>(\w+))>\D*\|(?<quantity>[\d]+)\|\D*(?<price>[\d]+(\.[\d]+)?)\$/;
+    
+    let line;
+    let totalEarnings = 0;
+    while ((line = input.shift()) !== "end of shift") {
+        let match = pattern.exec(line);
+        if (match !== null) {
+            let toPay = Number(match.groups["price"]) * Number(match.groups["quantity"]);
+            console.log(`${match.groups["name"]}: ${match.groups["product"]} - ${toPay.toFixed(2)}`);
+            totalEarnings += Number(match.groups["price"]) * Number(match.groups["quantity"]);
+        }
+
+    }
+    console.log(`Total income: ${totalEarnings.toFixed(2)}`);
+}
